@@ -11,7 +11,8 @@ WORKDIR /app
 COPY Task-3_Spring_Boot_JDBC_SQL/pom.xml .
 COPY Task-3_Spring_Boot_JDBC_SQL/src ./src
 
-# Bake the master interactive web platform into Spring Boot static resources
+# Ensure static directory exists and copy master frontend
+RUN mkdir -p ./src/main/resources/static
 COPY index.html ./src/main/resources/static/index.html
 COPY style.css ./src/main/resources/static/style.css
 COPY app.js ./src/main/resources/static/app.js
