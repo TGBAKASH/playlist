@@ -1,0 +1,19 @@
+# =========================================================
+# Render Blueprint Configuration (render.yaml)
+# =========================================================
+services:
+  - type: web
+    name: vibzz-music-platform
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: SPRING_DATASOURCE_URL
+        sync: false # Paste your Neon PostgreSQL connection string here
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false

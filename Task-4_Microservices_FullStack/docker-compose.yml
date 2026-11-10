@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # =========================================================
+  # 1. API Gateway Service (Port 8080)
+  # =========================================================
+  api-gateway:
+    build: ./api-gateway
+    container_name: vibzz-api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - CATALOG_SERVICE_URL=http://catalog-service:8081
+      - INTERACTION_SERVICE_URL=http://interaction-service:8082
+    depends_on:
+      - catalog-service
+      - interaction-service
+    networks:
+      - music-network
+
+  # =========================================================
+  # 2. Music Catalog Microservice (Port 8081)
+  # =========================================================
+  catalog-service:
+    build: ./catalog-service
+    container_name: vibzz-catalog-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+    networks:
+      - music-network
+
+  # =========================================================
+  # 3. User Interaction & Favorites Microservice (Port 8082)
+  # =========================================================
+  interaction-service:
+    build: ./interaction-service
+    container_name: vibzz-interaction-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SERVER_PORT=8082
+    networks:
+      - music-network
+
+networks:
+  music-network:
+    driver: bridge

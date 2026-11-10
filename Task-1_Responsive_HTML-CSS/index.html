@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harris Jayaraj Music Discography & Viral Receipt Playlist Web App. College Project for Web Technology CLA-II Task 1 & 2.">
+    <title>Harris Jayaraj - Ultimate 8D Audio & Receipt Platform</title>
+    <!-- Google Fonts for Stamped Title, Monospace Receipt, and Modern UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Hidden Native Audio with CORS enabled for Web Audio API -->
+    <audio id="native-audio" crossorigin="anonymous" preload="none"></audio>
+
+    <!-- Interactive Toast Notification Container -->
+    <div id="toast" class="toast-notification" aria-live="polite"></div>
+
+    <!-- Lyrics Drawer Modal -->
+    <div id="lyrics-modal" class="lyrics-modal" aria-hidden="true">
+        <div class="lyrics-modal-content">
+            <div class="lyrics-header">
+                <div>
+                    <h3 id="lyrics-song-title">MUN ANDHI</h3>
+                    <p id="lyrics-song-meta">7 Aum Arivu • Harris Jayaraj</p>
+                </div>
+                <button class="btn-close-modal" id="close-lyrics-btn" title="Close Lyrics">✕</button>
+            </div>
+            <div class="lyrics-body" id="lyrics-content">
+                <!-- Dynamic lyrics populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🎵</span>
+            <span class="brand-name">Vibzz Studio Pro</span>
+        </div>
+        <div class="nav-tags">
+            <button class="nav-pill-btn" id="open-eq-btn" title="Open 5-Band Studio Equalizer">🎛️ 5-Band EQ</button>
+            <button class="nav-pill-btn" id="spatial-audio-toggle" title="Toggle 8D Spatial Audio Orbit">🎧 8D Audio: OFF</button>
+            <span class="boost-header-badge" id="header-boost-tag">⚡ 200% Gain</span>
+            <span class="course-badge" id="db-status-badge">🟢 DB: Connected</span>
+        </div>
+    </header>
+
+    <!-- Master Academic Task Switcher (Showcasing all 4 Tasks on Live Website) -->
+    <nav class="task-suite-nav" aria-label="College Task Suite Tabs">
+        <div class="task-nav-container">
+            <button class="task-tab-btn active" data-tab="task1">
+                <span class="tab-badge">Task 1</span>
+                <span class="tab-title">Responsive HTML5 & CSS3 Receipt</span>
+            </button>
+            <button class="task-tab-btn" data-tab="task2">
+                <span class="tab-badge">Task 2</span>
+                <span class="tab-title">React 18 Architecture</span>
+            </button>
+            <button class="task-tab-btn" data-tab="task3">
+                <span class="tab-badge">Task 3</span>
+                <span class="tab-title">Live SQL & JDBC Database</span>
+            </button>
+            <button class="task-tab-btn" data-tab="task4">
+                <span class="tab-badge">Task 4</span>
+                <span class="tab-title">Microservices & Cloud Gateway</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container (2-Column Desktop Grid) -->
+    <main class="main-container">
+
+        <!-- ==============================================
+             LEFT COLUMN: ARTIST INFO, SPECTRUM & 200% PLAYER
+             ============================================== -->
+        <section class="player-column" aria-label="Music Player and Artist Bio">
+            
+            <div class="hero-badge">Tamil Cinema Musical Legend</div>
+            <h1 class="artist-title">HARRIS <span>JAYARAJ</span></h1>
+            <p class="artist-desc">
+                The ultimate interactive discography platform. Features <strong>8D Spatial Audio Panning</strong>, <strong>5-Band Studio Graphic EQ</strong>, <strong>200% Hardware Volume Amplification</strong>, and real-time <strong>Canvas Spectrum Visualizers</strong>.
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">16</span>
+                    <span class="stat-label">Tracks</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">81:33</span>
+                    <span class="stat-label">Duration</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="boost-status-val">200%</span>
+                    <span class="stat-label">Max Gain</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="spatial-radar-text">Stereo</span>
+                    <span class="stat-label">Spatial Pan</span>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 INTERACTIVE MUSIC PLAYER CARD
+                 ========================================== -->
+            <article class="player-card">
+                
+                <!-- Track Info Header -->
+                <div class="player-top">
+                    <div class="album-art-wrapper" id="album-art-box">
+                        <img id="player-album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a4/c1/95/a4c19595-7c67-3f73-1322-83569e5950d2/mzi.bopmwhba.jpg/300x300bb.jpg" alt="Album Cover" class="album-cover-img">
+                        <div class="vinyl-center-hole"></div>
+                    </div>
+                    
+                    <div class="track-details">
+                        <div class="status-row">
+                            <span class="now-playing-label">NOW PLAYING</span>
+                            <div class="equalizer" id="equalizer">
+                                <span class="eq-bar"></span>
+                                <span class="eq-bar"></span>
+                                <span class="eq-bar"></span>
+                                <span class="eq-bar"></span>
+                            </div>
+                            <span class="spatial-orbit-badge" id="orbit-indicator">🎧 Stereo</span>
+                        </div>
+                        <h3 class="track-title" id="current-track-title">MUN ANDHI</h3>
+                        <p class="track-artist" id="current-track-artist">Harris Jayaraj • 7 Aum Arivu (2011)</p>
+                    </div>
+
+                    <!-- Lyrics Trigger Button -->
+                    <button class="btn-lyrics" id="btn-show-lyrics" title="View Song Lyrics">📜 Lyrics</button>
+                </div>
+
+                <!-- Live Canvas Frequency Spectrum Visualizer with Mode Switcher -->
+                <div class="visualizer-wrapper">
+                    <div class="visualizer-controls">
+                        <span class="viz-label">Visualizer Mode:</span>
+                        <div class="viz-btn-group">
+                            <button class="viz-btn active" data-mode="bars" title="Frequency Bars">Bars</button>
+                            <button class="viz-btn" data-mode="wave" title="Audio Waveform">Wave</button>
+                            <button class="viz-btn" data-mode="particles" title="Neon Beat Pulse">Pulse</button>
+                        </div>
+                    </div>
+                    <canvas id="visualizer-canvas" class="visualizer-canvas" width="460" height="60" title="Real-time Web Audio Visualizer"></canvas>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-bar-container" id="progress-bar" title="Click to seek">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="current-time">0:00</span>
+                        <span id="total-duration">0:30</span>
+                    </div>
+                </div>
+
+                <!-- Playback Control Buttons -->
+                <div class="controls-row">
+                    <button class="btn-ctrl" id="shuffle-btn" title="Shuffle Mode" aria-label="Toggle Shuffle">🔀</button>
+                    <button class="btn-ctrl" id="prev-btn" title="Previous Track (←)" aria-label="Previous Track">⏮</button>
+                    <button class="btn-ctrl btn-play" id="play-btn" title="Play Track (Space)" aria-label="Play or Pause Track">▶</button>
+                    <button class="btn-ctrl" id="next-btn" title="Next Track (→)" aria-label="Next Track">⏭</button>
+                    <button class="btn-ctrl" id="loop-btn" title="Loop Track" aria-label="Toggle Repeat">🔁</button>
+                </div>
+
+                <!-- ======================================
+                     200% VOLUME BOOSTER & SPATIAL CONTROLS
+                     ====================================== -->
+                <div class="volume-booster-panel">
+                    <div class="volume-header">
+                        <span class="vol-label">🔊 Master Gain & DSP Effects</span>
+                        <div class="boost-tags">
+                            <button class="btn-fx" id="spatial-btn-card" title="Toggle 8D Rotating Spatial Audio">🎧 8D AUDIO</button>
+                            <button class="btn-fx" id="bass-boost-btn" title="Toggle Bass Boost Low-Shelf Filter">🎧 BASS BOOST</button>
+                            <span class="boost-pill" id="boost-badge">100% STANDARD</span>
+                            <button class="btn-boost-max" id="boost-btn" title="Instantly amplify to 200% volume">⚡ 200% BOOST</button>
+                        </div>
+                    </div>
+
+                    <div class="volume-slider-wrapper">
+                        <input type="range" id="volume-slider" min="0" max="200" value="100" class="volume-slider" aria-label="Volume Slider 0 to 200 percent">
+                        <div class="slider-marks">
+                            <span>0%</span>
+                            <span>50%</span>
+                            <span>100% (Std)</span>
+                            <span class="mark-boost">200% (Boost)</span>
+                        </div>
+                    </div>
+
+                    <!-- Keyboard Shortcuts Helper -->
+                    <div class="keyboard-hints">
+                        <span>⌨️ Shortcuts: <code>Space</code> Play • <code>B</code> 200% Boost • <code>S</code> 8D Spatial • <code>L</code> Lyrics • <code>← / →</code> Track • <code>↑ / ↓</code> Vol</span>
+                    </div>
+                </div>
+
+                <!-- ======================================
+                     COLLAPSIBLE 5-BAND STUDIO GRAPHIC EQ
+                     ====================================== -->
+                <div class="studio-eq-drawer" id="studio-eq-drawer">
+                    <div class="eq-drawer-header">
+                        <h4>🎛️ 5-Band Studio Graphic Equalizer (BiquadFilter DSP)</h4>
+                        <div class="eq-presets">
+                            <label for="eq-preset-select">Preset:</label>
+                            <select id="eq-preset-select">
+                                <option value="flat">Studio Flat</option>
+                                <option value="bass">Bass Heavy (+10dB)</option>
+                                <option value="vocal">Vocal Clarity</option>
+                                <option value="treble">Treble Sparkle</option>
+                                <option value="hall">Concert Hall</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="eq-sliders-row">
+                        <div class="eq-band">
+                            <span class="band-val" id="val-60">0dB</span>
+                            <input type="range" id="eq-60" min="-12" max="12" value="0" orient="vertical" class="eq-vertical-slider">
+                            <span class="band-freq">60Hz</span>
+                            <span class="band-name">Sub</span>
+                        </div>
+                        <div class="eq-band">
+                            <span class="band-val" id="val-250">0dB</span>
+                            <input type="range" id="eq-250" min="-12" max="12" value="0" orient="vertical" class="eq-vertical-slider">
+                            <span class="band-freq">250Hz</span>
+                            <span class="band-name">Bass</span>
+                        </div>
+                        <div class="eq-band">
+                            <span class="band-val" id="val-1000">0dB</span>
+                            <input type="range" id="eq-1000" min="-12" max="12" value="0" orient="vertical" class="eq-vertical-slider">
+                            <span class="band-freq">1kHz</span>
+                            <span class="band-name">Mid</span>
+                        </div>
+                        <div class="eq-band">
+                            <span class="band-val" id="val-4000">0dB</span>
+                            <input type="range" id="eq-4000" min="-12" max="12" value="0" orient="vertical" class="eq-vertical-slider">
+                            <span class="band-freq">4kHz</span>
+                            <span class="band-name">Pres</span>
+                        </div>
+                        <div class="eq-band">
+                            <span class="band-val" id="val-12000">0dB</span>
+                            <input type="range" id="eq-12000" min="-12" max="12" value="0" orient="vertical" class="eq-vertical-slider">
+                            <span class="band-freq">12kHz</span>
+                            <span class="band-name">Treble</span>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- ==============================================
+             RIGHT COLUMN: THE VINTAGE RECEIPT CARD (From Image)
+             ============================================== -->
+        <section class="receipt-column" aria-label="Vintage Tracklist Receipt">
+            
+            <div class="receipt-outer" id="printable-receipt">
+                <!-- Masking Tape Texture -->
+                <div class="tape-element"></div>
+
+                <!-- Receipt Paper -->
+                <article class="receipt-paper" id="receipt-paper-card">
+                    
+                    <!-- Stamped Header -->
+                    <div class="receipt-header">
+                        <h2 class="stamped-title">HARRIS<br>JAYARAJ</h2>
+                    </div>
+
+                    <!-- Receipt Search & Filter Tool -->
+                    <div class="receipt-search-box">
+                        <input type="text" id="song-search-input" placeholder="🔍 Search track or movie..." aria-label="Filter playlist tracks">
+                    </div>
+
+                    <p class="receipt-tip"><em>👉 Click any song below to play live:</em></p>
+                    
+                    <!-- Song List (Clickable to Play!) -->
+                    <div class="song-table" id="receipt-song-table">
+                        <div class="song-row" data-id="0">
+                            <span class="song-name">MUN ANDHI</span>
+                            <span class="song-time">6:14</span>
+                        </div>
+                        <div class="song-row" data-id="1">
+                            <span class="song-name">MAZHAI VARA POGUDHAE</span>
+                            <span class="song-time">5:42</span>
+                        </div>
+                        <div class="song-row" data-id="2">
+                            <span class="song-name">PUYALAE PUYALAE</span>
+                            <span class="song-time">4:58</span>
+                        </div>
+                        <div class="song-row" data-id="3">
+                            <span class="song-name">ONDRA RENDA</span>
+                            <span class="song-time">5:06</span>
+                        </div>
+                        <div class="song-row" data-id="4">
+                            <span class="song-name">RAGASIYA KANAVUGAL</span>
+                            <span class="song-time">5:59</span>
+                        </div>
+                        <div class="song-row" data-id="5">
+                            <span class="song-name">THEE ILLAI</span>
+                            <span class="song-time">5:27</span>
+                        </div>
+                        <div class="song-row" data-id="6">
+                            <span class="song-name">LESA LESA</span>
+                            <span class="song-time">4:41</span>
+                        </div>
+                        <div class="song-row" data-id="7">
+                            <span class="song-name">EN FRIENDA POLA</span>
+                            <span class="song-time">3:57</span>
+                        </div>
+                        <div class="song-row" data-id="8">
+                            <span class="song-name">SUTTUM VIZHI</span>
+                            <span class="song-time">5:18</span>
+                        </div>
+                        <div class="song-row" data-id="9">
+                            <span class="song-name">ENNAMO YEDHO</span>
+                            <span class="song-time">5:34</span>
+                        </div>
+                        <div class="song-row" data-id="10">
+                            <span class="song-name">UNNAALE UNNAALE</span>
+                            <span class="song-time">4:43</span>
+                        </div>
+                        <div class="song-row" data-id="11">
+                            <span class="song-name">EN ANBE</span>
+                            <span class="song-time">6:07</span>
+                        </div>
+                        <div class="song-row" data-id="12">
+                            <span class="song-name">AATHANGARA ORATHIL</span>
+                            <span class="song-time">4:24</span>
+                        </div>
+                        <div class="song-row" data-id="13">
+                            <span class="song-name">PAARTHA MUDHAL</span>
+                            <span class="song-time">6:08</span>
+                        </div>
+                        <div class="song-row" data-id="14">
+                            <span class="song-name">AVA ENNA</span>
+                            <span class="song-time">5:18</span>
+                        </div>
+                        <div class="song-row" data-id="15">
+                            <span class="song-name">POOPOL POOPOL</span>
+                            <span class="song-time">1:57</span>
+                        </div>
+                    </div>
+
+                    <!-- Dashed Line -->
+                    <hr class="receipt-divider">
+
+                    <!-- Totals -->
+                    <div class="receipt-summary">
+                        <div class="summary-line">
+                            <span>ITEM COUNT</span>
+                            <span id="receipt-item-count">16</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>TOTAL</span>
+                            <span>81:33</span>
+                        </div>
+                    </div>
+
+                    <!-- Dashed Line -->
+                    <hr class="receipt-divider">
+
+                    <!-- Barcode & Credits -->
+                    <div class="receipt-footer">
+                        <div class="soundwave-code">
+                            <span class="b-line bh-1"></span>
+                            <span class="b-line bh-3"></span>
+                            <span class="b-line bh-2"></span>
+                            <span class="b-line bh-4"></span>
+                            <span class="b-line bh-1"></span>
+                            <span class="b-line bh-3"></span>
+                            <span class="b-line bh-4"></span>
+                            <span class="b-line bh-2"></span>
+                            <span class="b-line bh-3"></span>
+                            <span class="b-line bh-1"></span>
+                            <span class="b-line bh-4"></span>
+                            <span class="b-line bh-2"></span>
+                            <span class="b-line bh-3"></span>
+                            <span class="b-line bh-1"></span>
+                        </div>
+                        <p class="receipt-credit">RECEIPT BY ORICATESTEHTIC</p>
+                    </div>
+
+                    <!-- Receipt Action Buttons: Print & Instant PNG Download -->
+                    <div class="receipt-actions">
+                        <button class="btn-print" id="download-png-btn" title="Export as High-Resolution PNG image">📸 Export PNG</button>
+                        <button class="btn-print" id="print-receipt-btn" title="Print receipt or save as PDF">🧾 Print PDF</button>
+                    </div>
+
+                </article>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ==============================================
+         DISCOGRAPHY DETAILS CARDS (FOR COLLEGE EVALUATION)
+         ============================================== -->
+    <section class="discography-section" id="discography" aria-label="Discography Catalog">
+        <div class="discography-container">
+            <div class="section-head">
+                <div>
+                    <h2>Featured Movie Soundtracks</h2>
+                    <p>Click any soundtrack card below to preview the original master recording</p>
+                </div>
+                <!-- Quick Genre / Era Filter Chips -->
+                <div class="filter-chips">
+                    <button class="chip active" data-filter="all">All (16)</button>
+                    <button class="chip" data-filter="surya">Suriya Hits</button>
+                    <button class="chip" data-filter="romantic">Melodies</button>
+                    <button class="chip" data-filter="classic">2001-2005</button>
+                </div>
+            </div>
+
+            <div class="disc-grid" id="disc-cards-grid">
+                
+                <div class="disc-card" data-id="0" data-tags="surya romantic">
+                    <span class="disc-num">01</span>
+                    <div class="disc-meta">
+                        <h4>Mun Andhi</h4>
+                        <p>7 Aum Arivu • 2011</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="1" data-tags="romantic">
+                    <span class="disc-num">02</span>
+                    <div class="disc-meta">
+                        <h4>Mazhai Vara Pogudhae</h4>
+                        <p>Yennai Arindhaal • 2015</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="2" data-tags="classic">
+                    <span class="disc-num">03</span>
+                    <div class="disc-meta">
+                        <h4>Puyalae Puyalae</h4>
+                        <p>Kovil • 2004</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="3" data-tags="surya classic romantic">
+                    <span class="disc-num">04</span>
+                    <div class="disc-meta">
+                        <h4>Ondra Renda</h4>
+                        <p>Kaakha Kaakha • 2003</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="4" data-tags="romantic">
+                    <span class="disc-num">05</span>
+                    <div class="disc-meta">
+                        <h4>Ragasiya Kanavugal</h4>
+                        <p>Bheema • 2008</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="5" data-tags="romantic">
+                    <span class="disc-num">06</span>
+                    <div class="disc-meta">
+                        <h4>Thee Illai</h4>
+                        <p>Engeyum Kadhal • 2011</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="6" data-tags="classic romantic">
+                    <span class="disc-num">07</span>
+                    <div class="disc-meta">
+                        <h4>Lesa Lesa</h4>
+                        <p>Lesa Lesa • 2003</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="7" data-tags="classic">
+                    <span class="disc-num">08</span>
+                    <div class="disc-meta">
+                        <h4>En Frienda Pola</h4>
+                        <p>Nanban • 2012</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="8" data-tags="surya classic romantic">
+                    <span class="disc-num">09</span>
+                    <div class="disc-meta">
+                        <h4>Suttum Vizhi</h4>
+                        <p>Ghajini • 2005</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="9" data-tags="romantic">
+                    <span class="disc-num">10</span>
+                    <div class="disc-meta">
+                        <h4>Ennamo Yedho</h4>
+                        <p>Ko • 2011</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="10" data-tags="romantic">
+                    <span class="disc-num">11</span>
+                    <div class="disc-meta">
+                        <h4>Unnaale Unnaale</h4>
+                        <p>Unnale Unnale • 2007</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="11" data-tags="romantic">
+                    <span class="disc-num">12</span>
+                    <div class="disc-meta">
+                        <h4>En Anbe</h4>
+                        <p>Sathyam • 2008</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="12" data-tags="romantic">
+                    <span class="disc-num">13</span>
+                    <div class="disc-meta">
+                        <h4>Aathangara Orathil</h4>
+                        <p>Yaan • 2014</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="13" data-tags="romantic">
+                    <span class="disc-num">14</span>
+                    <div class="disc-meta">
+                        <h4>Paartha Mudhal</h4>
+                        <p>Vettaiyaadu Vilaiyaadu • 2006</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="14" data-tags="surya romantic">
+                    <span class="disc-num">15</span>
+                    <div class="disc-meta">
+                        <h4>Ava Enna</h4>
+                        <p>Vaaranam Aayiram • 2008</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+                <div class="disc-card" data-id="15" data-tags="classic romantic">
+                    <span class="disc-num">16</span>
+                    <div class="disc-meta">
+                        <h4>Poopol Poopol</h4>
+                        <p>Minnalae • 2001</p>
+                    </div>
+                    <span class="disc-play-btn">▶</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================
+         TASK 2 SHOWCASE: REACT 18 ARCHITECTURE & HOOKS
+         ============================================== -->
+    <section class="task-view-panel" id="view-task2" style="display: none;">
+        <div class="panel-container">
+            <div class="panel-head">
+                <span class="panel-pill">Task 2 • Bloom's Level K3 & K4</span>
+                <h2>React 18 Component Hierarchy & Hook Telemetry</h2>
+                <p>Interactive breakdown of the componentized React application located in <code>/Task-2_React_Application</code></p>
+            </div>
+            
+            <div class="react-architecture-grid">
+                <div class="arch-card">
+                    <h3>🌳 Component Tree</h3>
+                    <pre class="code-box">
+&lt;App /&gt; (Root Web Audio Context)
+ ├── &lt;Navbar /&gt;
+ ├── &lt;main&gt;
+ │    ├── &lt;AudioPlayer /&gt;
+ │    │    ├── &lt;VisualizerCanvas /&gt;
+ │    │    └── &lt;VolumeBooster /&gt;
+ │    └── &lt;Receipt /&gt; (Song Rows & Search)
+ └── &lt;DiscographyGrid /&gt; (Filter Chips)
+                    </pre>
+                </div>
+                <div class="arch-card">
+                    <h3>⚛️ React Hooks State Monitor</h3>
+                    <div class="hook-monitor">
+                        <div class="hook-row">
+                            <span class="hook-name">useState(currentTrackIndex)</span>
+                            <span class="hook-val" id="react-state-track">0 ("MUN ANDHI")</span>
+                        </div>
+                        <div class="hook-row">
+                            <span class="hook-name">useState(volume)</span>
+                            <span class="hook-val" id="react-state-vol">100%</span>
+                        </div>
+                        <div class="hook-row">
+                            <span class="hook-name">useRef(audioCtxRef)</span>
+                            <span class="hook-val">Active (Sample Rate: 48kHz)</span>
+                        </div>
+                        <div class="hook-row">
+                            <span class="hook-name">useCallback(selectTrack)</span>
+                            <span class="hook-val">Memoized with async API fetch</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================
+         TASK 3 SHOWCASE: LIVE SQL & JDBC DATABASE EXPLORER
+         ============================================== -->
+    <section class="task-view-panel" id="view-task3" style="display: none;">
+        <div class="panel-container">
+            <div class="panel-head">
+                <span class="panel-pill">Task 3 • Bloom's Level K3 & K4 • Spring Boot + JDBC</span>
+                <h2>Live PostgreSQL / H2 Database Connectivity</h2>
+                <p>Real-time records queried from the database using <code>java.sql.PreparedStatement</code> & <code>ResultSet</code></p>
+            </div>
+
+            <!-- Database Stats Row -->
+            <div class="db-stats-row">
+                <div class="db-stat-box">
+                    <span class="db-stat-num" id="db-total-tracks">16</span>
+                    <span class="db-stat-lbl">Tracks in SQL</span>
+                </div>
+                <div class="db-stat-box">
+                    <span class="db-stat-num" id="db-total-plays">20,890</span>
+                    <span class="db-stat-lbl">Plays in SQL Table</span>
+                </div>
+                <div class="db-stat-box">
+                    <span class="db-stat-num" id="db-engine-type">Neon PostgreSQL</span>
+                    <span class="db-stat-lbl">Database Engine</span>
+                </div>
+            </div>
+
+            <!-- Live SQL Table -->
+            <div class="sql-table-wrapper">
+                <table class="sql-data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Song Title</th>
+                            <th>Movie</th>
+                            <th>Year</th>
+                            <th>Play Count</th>
+                            <th>Favorite</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="live-sql-rows">
+                        <!-- Populated live via /api/songs -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================
+         TASK 4 SHOWCASE: MICROSERVICES & CLOUD GATEWAY
+         ============================================== -->
+    <section class="task-view-panel" id="view-task4" style="display: none;">
+        <div class="panel-container">
+            <div class="panel-head">
+                <span class="panel-pill">Task 4 • Bloom's Level K6 • Microservices Architecture</span>
+                <h2>Distributed Topology & API Gateway Explorer</h2>
+                <p>Decoupled multi-service deployment with Database-per-Service and Reverse Proxy patterns</p>
+            </div>
+
+            <div class="microservices-topology">
+                <div class="svc-card gateway-card">
+                    <div class="svc-status online"></div>
+                    <h3>API Gateway</h3>
+                    <p class="svc-port">Port 8080 (Public Route)</p>
+                    <span class="svc-desc">Centralized reverse proxy routing traffic & managing unified CORS.</span>
+                </div>
+                <div class="topology-arrows">⇄</div>
+                <div class="svc-sub-grid">
+                    <div class="svc-card">
+                        <div class="svc-status online"></div>
+                        <h3>Catalog Microservice</h3>
+                        <p class="svc-port">Port 8081 (/api/catalog/**)</p>
+                        <span class="svc-desc">Manages 16-song discography, metadata, and Apple CDN previews.</span>
+                    </div>
+                    <div class="svc-card">
+                        <div class="svc-status online"></div>
+                        <h3>Interaction Microservice</h3>
+                        <p class="svc-port">Port 8082 (/api/interaction/**)</p>
+                        <span class="svc-desc">Tracks user favorites, play counts, and analytics independently.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>Web Technology Term Work • CLA–II Task 1 & 2 Master Suite</p>
+        <p class="sub-credit">Built with Semantic HTML5, CSS3 Grid/Flexbox, Apple iTunes Search API, Web Audio 8D Spatial DSP & 5-Band Studio Graphic EQ</p>
+    </footer>
+
+    <!-- App Engine JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

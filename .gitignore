@@ -1,0 +1,21 @@
+# Dependencies & Build Artifacts
+node_modules/
+target/
+dist/
+*.class
+
+# Tools & Portable downloads
+tools/
+*.zip
+*.log
+
+# Scratch scripts
+scratch*
+.system_generated/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
