@@ -3,9 +3,9 @@
 -- ANSI SQL Standard: Compatible with PostgreSQL (Neon) & H2
 -- =========================================================
 
-DROP TABLE IF EXISTS play_logs;
-DROP TABLE IF EXISTS favorites;
-DROP TABLE IF EXISTS songs;
+DROP TABLE IF EXISTS play_logs CASCADE;
+DROP TABLE IF EXISTS favorites CASCADE;
+DROP TABLE IF EXISTS songs CASCADE;
 
 -- 1. Songs Table
 CREATE TABLE songs (

@@ -1,9 +1,10 @@
 # =========================================================
 # Render Blueprint Configuration (render.yaml)
+# Single-container deployment: Spring Boot + Static Web + Neon PostgreSQL
 # =========================================================
 services:
   - type: web
-    name: vibzz-music-platform
+    name: harris-jayaraj-playlist-suite
     env: docker
     dockerfilePath: Dockerfile
     plan: free
@@ -11,9 +12,5 @@ services:
     envVars:
       - key: PORT
         value: 8080
-      - key: SPRING_DATASOURCE_URL
+      - key: DATABASE_URL
         sync: false # Paste your Neon PostgreSQL connection string here
-      - key: SPRING_DATASOURCE_USERNAME
-        sync: false
-      - key: SPRING_DATASOURCE_PASSWORD
-        sync: false
